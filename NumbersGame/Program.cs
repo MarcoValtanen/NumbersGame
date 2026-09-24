@@ -9,12 +9,26 @@ namespace NumbersGame
         static void Main(string[] args)
         {
             GissaNummer();
-            Console.WriteLine("Vill du spela engång till?");
-            string yes = Console.ReadLine();
-            if (yes == "Ja")
+           
+        }
+
+        private static void NewMethod()
+        {
+            Console.WriteLine("Vill du spela engång till? Skriv 'nej' för att avsluta");
+            string yes = Console.ReadLine().ToLower();
+            if (yes == "ja")
             {
-                Console.WriteLine("------------------");
+                Console.Clear();
                 GissaNummer();
+            }
+            else if (yes == "nej")
+            {
+                Console.WriteLine("avslutar");
+            }
+            else
+            {
+                Console.WriteLine("Felinmatning försök igen");
+                NewMethod();
             }
         }
 
@@ -52,14 +66,14 @@ namespace NumbersGame
                 else if (numberToGuess == guessedNumber)
                 {
                     Console.WriteLine("Wohoo! Du gjorde det! Rätt nummer var {0}", numberToGuess);
-                   
+                    NewMethod();
                    
                 }
 
                 if (i == count - 1 && numberToGuess != guessedNumber)
                 {
                     Console.WriteLine("Tyvärr så lyckades du inte gissa talet på {0} försök, rätt nummer var {1}", count, numberToGuess);
-                  
+                    NewMethod();
                 }
             }
         }
@@ -73,14 +87,14 @@ namespace NumbersGame
 
         public static double CloseOrNot(double numtoG, double gnum, out string N)
         {
-            double quitent = numtoG/gnum;
+            double diffFromNumber = numtoG/gnum;
              
 
-            if (quitent > 0.8) 
+            if (diffFromNumber > 0.8) 
             {
                 N = "Brännhett! Du är supernära.";
             }
-            else if (quitent >= 0.5 && quitent <= 0.8)
+            else if (diffFromNumber >= 0.5 && diffFromNumber <= 0.8)
             {
                 N = "Varmt, du är ganska nära.";
             }
@@ -88,11 +102,8 @@ namespace NumbersGame
             {
                 N = "Kallt, inte alls nära.";
             }
-            return quitent;
-                    
-                
+            return diffFromNumber;
             
-
         }
 
     }
